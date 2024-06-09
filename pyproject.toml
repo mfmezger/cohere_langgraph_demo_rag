@@ -14,6 +14,8 @@ chromadb = "^0.5.0"
 tiktoken = "^0.7.0"
 langchain = "^0.2.3"
 langchain-community = "^0.2.4"
+beautifulsoup4 = "^4.12.3"
+loguru = "^0.7.2"
 
 
 [build-system]

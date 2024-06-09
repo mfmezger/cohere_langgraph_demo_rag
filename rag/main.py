@@ -1,9 +1,10 @@
 """Main RAG Graph."""
-import pprint
 
+from dotenv import load_dotenv
 from langchain.schema import Document
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langgraph.graph import END, StateGraph
+from loguru import logger
 from typing_extensions import TypedDict
 
 from rag.components.fallback import generate_fallback_chain
@@ -11,6 +12,8 @@ from rag.components.grader import generate_answer_grader, generate_document_grad
 from rag.components.rag import generate_rag_chain
 from rag.components.router import generate_question_router
 from rag.components.vdb import load_vdb_retriver
+
+load_dotenv()
 
 # Setup the necessary components
 retriever = load_vdb_retriver()
@@ -244,7 +247,7 @@ def grade_generation_v_documents_and_question(state: GraphState) -> str:
         else:
             return "not useful"
     else:
-        pprint("---DECISION: GENERATION IS NOT GROUNDED IN DOCUMENTS, RE-TRY---")
+        logger.info("---DECISION: GENERATION IS NOT GROUNDED IN DOCUMENTS, RE-TRY---")
         return "not supported"
 
 
@@ -290,13 +293,15 @@ workflow.add_edge("llm_fallback", END)
 # Compile
 app = workflow.compile()
 
-
 # Run
-inputs = {"question": "What player are the Bears expected to draft first in the 2024 NFL draft?"}
+inputs = {"question": "Can you give me the necessary stepts to  install nvidia on stackit?"}
 for output in app.stream(inputs):
-    for _key, _value in output.items():
+    for key, value in output.items():
         # Node
-        pass
+        logger.info(f"Node '{key}':")
         # Optional: print full state at each node
+        logger.info(value["keys"], indent=2, width=80, depth=None)
+    logger.info("\n---\n")
 
 # Final generation
+logger.info(value["generation"])

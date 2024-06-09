@@ -1,12 +1,12 @@
 """Here the grader chains are defined. These chains are used to grade the quality of the generated answers, documents and halluzinations."""
-from langchain.core import chain
+from langchain.chains.base import Chain
 from langchain_cohere import ChatCohere
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 
 # Data model
-def generate_document_grader() -> chain:
+def generate_document_grader() -> Chain:
     """Generates a grader chain to assess relevance of a retrieved document to a user question.
 
     Returns
@@ -38,7 +38,7 @@ def generate_document_grader() -> chain:
     return grade_prompt | structured_llm_grader
 
 
-def generate_hallucination_grader() -> chain:
+def generate_hallucination_grader() -> Chain:
     """Generates a grader chain to assess hallucination in a generation answer.
 
     Returns
@@ -72,7 +72,7 @@ def generate_hallucination_grader() -> chain:
     return hallucination_prompt | structured_llm_grader
 
 
-def generate_answer_grader() -> chain:
+def generate_answer_grader() -> Chain:
     """Generates a grader chain to assess whether an answer addresses a question.
 
     Returns

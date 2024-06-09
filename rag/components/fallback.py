@@ -1,12 +1,12 @@
 """Here the fallback chain is defined. This chain is used when the main chain fails to generate an answer."""
+from langchain.chains.base import Chain
 from langchain_cohere import ChatCohere
-from langchain_core import chain
 from langchain_core.messages import HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 
-def generate_fallback_chain() -> chain:
+def generate_fallback_chain() -> Chain:
     """Generates a fallback chain to generate answers based on retrieved documents."""
     # Preamble
     preamble = (

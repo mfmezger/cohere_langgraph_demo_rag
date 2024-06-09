@@ -1,12 +1,12 @@
 """Here the RAG chain is defined. This chain is used to generate answers based on retrieved documents."""
+from langchain.chains.base import Chain
 from langchain_cohere import ChatCohere
-from langchain_core import chain
 from langchain_core.messages import HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 
-def generate_rag_chain() -> chain:
+def generate_rag_chain() -> Chain:
     """Generates a RAG chain to generate answers based on retrieved documents."""
     # Preamble
     preamble = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise."""

@@ -1,12 +1,12 @@
 """Here the vectorstore is defined. This vectorstore is used to store and retrieve documents."""
+from langchain.chains.base import Chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_cohere import CohereEmbeddings
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
-from langchain_core import chain
 
 
-def load_vdb_retriver() -> chain:
+def load_vdb_retriver() -> Chain:
     """Load the vectorstore retriever."""
     # Set embeddings
     embd = CohereEmbeddings()
@@ -23,7 +23,7 @@ def load_vdb_retriver() -> chain:
     docs_list = [item for sublist in docs for item in sublist]
 
     # Split
-    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=512, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=512, chunk_overlap=100)
     doc_splits = text_splitter.split_documents(docs_list)
 
     # Add to vectorstore

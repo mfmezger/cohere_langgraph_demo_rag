@@ -1,11 +1,11 @@
 """Here the router chain is defined. This chain is used to route a user question to a vectorstore or web search."""
+from langchain.chains.base import Chain
 from langchain_cohere import ChatCohere
-from langchain_core import chain
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 
-def generate_question_router() -> chain:
+def generate_question_router() -> Chain:
     """Generates a router chain to route a user question to a vectorstore or web search."""
 
     # Data model
