@@ -295,13 +295,23 @@ app = workflow.compile()
 
 # Run
 inputs = {"question": "Can you give me the necessary stepts to  install nvidia on stackit?"}
+
+# for output in app.stream(inputs):
+#     for key, value in output.items():
+#         # Node
+#         logger.info(f"Node '{key}':")
+#         # Optional: print full state at each node
+#         # logger.info(value["keys"], indent=2, width=80, depth=None)
+
+# # Final generation
+# logger.info(value["generation"])
+
+
+inputs = {"question": "What is an ETF?"}
 for output in app.stream(inputs):
     for key, value in output.items():
         # Node
         logger.info(f"Node '{key}':")
-        # Optional: print full state at each node
-        logger.info(value["keys"], indent=2, width=80, depth=None)
-    logger.info("\n---\n")
 
 # Final generation
 logger.info(value["generation"])
